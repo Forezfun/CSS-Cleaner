@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "CSS Cleaner",
+  "version": "1.1",
+  "description": "Highlight hard DOM elements of CSS part of web application",
+  "icons": {
+    "48": "skin/icons/48.png",
+    "96": "skin/icons/96.png"
+  },
+  "permissions": [
+    "<all_urls>"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "96": "skin/icons/96.png"
+    },
+    "default_title": "Content script",
+    "browser_style": true
+  },
+  "background": {
+    "scripts": ["scripts/unused/unused.js"]
+  },
+  "devtools_page": "devtools/devtools-page.html"
+}

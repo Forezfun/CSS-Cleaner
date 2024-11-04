@@ -1,0 +1,99 @@
+{
+    "parent": {
+        "grid-area": {
+            "parentProperty": "display",
+            "parentValue": ["grid"]
+        },
+        "justify-self": {
+            "parentProperty": "display",
+            "parentValue": ["grid", "inline-grid"]
+        },
+        "align-self": {
+            "parentProperty": "display",
+            "parentValue": ["grid", "inline-grid", "flex", "inline-flex"]
+        },
+        "flex-grow": {
+            "parentProperty": "display",
+            "parentValue": ["flex", "inline-flex"]
+        },
+        "order": {
+            "parentProperty": "display",
+            "parentValue": ["flex", "inline-flex"]
+        },
+        "column-gap": {
+            "parentProperty": "display",
+            "parentValue": ["grid", "flex", "inline-flex"]
+        },
+        "table-layout": {
+            "parentProperty": "display",
+            "parentValue": ["table"]
+        },
+        "align-content": {
+            "parentProperty": "display",
+            "parentValue": ["grid", "flex"]
+        },
+        "resize": {
+            "parentProperty": "overflow",
+            "parentValue": ["auto", "scroll"]
+        },
+        "clip-path": {
+            "parentProperty": "overflow",
+            "parentValue": ["hidden"]
+        },
+        "scroll-snap-type": {
+            "parentProperty": "overflow",
+            "parentValue": ["scroll", "auto"]
+        }
+    },
+    "self": {
+        "gap":{
+            "selfProperty": "display",
+            "selfValue": ["grid", "flex"]
+        },
+        "flex-direction": {
+            "selfProperty": "display",
+            "selfValue": ["flex"]
+        },
+        "align-self": {
+            "selfProperty": "display",
+            "selfValue": ["grid", "inline-grid", "flex", "inline-flex"]
+        },
+        "justify-self": {
+            "selfProperty": "display",
+            "selfValue": ["grid", "inline-grid"]
+        },
+        "flex-grow": {
+            "selfProperty": "display",
+            "selfValue": ["flex", "inline-flex"]
+        },
+        "align-content": {
+            "selfProperty": "display",
+            "selfValue": ["grid", "flex"]
+        },
+        "align-items": {
+            "selfProperty": "display",
+            "selfValue": ["grid", "flex"]
+        },
+        "place-items": {
+            "selfProperty": "display",
+            "selfValue": ["grid"]
+        },
+        "table-layout": {
+            "selfProperty": "display",
+            "selfValue": ["table"]
+        },
+
+        "resize": {
+            "selfProperty": "overflow",
+            "selfValue": ["auto", "scroll"]
+        },
+        "clip-path": {
+            "selfProperty": "overflow",
+            "selfValue": ["hidden"]
+        },
+        "scroll-snap-type": {
+            "selfProperty": "overflow",
+            "selfValue": ["scroll", "auto"]
+        }
+    }
+}

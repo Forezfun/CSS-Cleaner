@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+        <span class="titleSpan">
+            <h2 class="text extensionTitle">CSS CLEANER</h2>
+            <select class="chooseLanguageInput text">
+                <option value="en">En</option>
+                <option value="ru">Ru</option>
+            </select>
+        </span>
+        <div class="buttonSwitcher">
+            <button class="switchButton workButton active text"id="workMode1" locale-title="loadedFunctionalModeDescription" locale-text="shortLoadedFunctionalMode"></button>
+            <button class="switchButton workButton text" id="workMode2" locale-title="unusableFunctionalModeDescription" locale-text="shortUnusableFunctionalMode"></button>
+        </div>
+        <span class="settings">
+            <span class="allModesSettingsSpan settingsSpan">
+                <span class="pair">
+                    <label for="colorHightlight" class="labelSetting" locale-title="colorHighlightDescription" locale-text="colorHighlightShort"></label>
+                    <input id="colorHightlight" class="inputSetting" type="color">
+                </span>
+                <span class="pair">
+                    <label for="maxElements" class="labelSetting" locale-title="maxElementsCaptureDescription" locale-text="shortMaxElementsCaptureShort"></label>
+                    <input placeholder="5-100" min="10" type="number" max="100" id="maxElements" class="inputSetting">
+                </span>
+            </span>
+            <div class="buttonSwitcher">
+                <button class="switchButton viewButton text" id="viewMode1" locale-title="constantViewModeDescription" locale-text="shortConstantViewMode"></button>
+                <button class="switchButton viewButton text active" id="viewMode2" locale-title="fadeViewModeDescription" locale-text="shortFadeViewMode"></button>
+            </div>
+            <span class="constantViewModeSettingsSpan settingsSpan disabled">
+            </span>
+            <span class="temporaryViewModeSettingsSpan settingsSpan">
+                <span class="pair">
+                    <label for="reduceInterval" class="labelSetting" locale-title="intervalReduceOpacityDescription" locale-text="intervalReduceOpacityShort"></label>
+                    <input placeholder="100ms-10000ms" type="text" id="reduceInterval" class="inputSetting">
+                </span>
+                <span class="pair">
+                    <label for="reducePercent" class="labelSetting" locale-title="percentReduceOpacityDescription" locale-text="percentReduceOpacityShort"></label>
+                    <input placeholder="1-25" type="number" max="25" min="1" id="reducePercent" class="inputSetting">
+                </span>
+            </span>
+        </span>
+        <span class="functionalBtnsSpan">
+            <button class="clearBtn" id="updateBtn">
+                <img src="/skin/images/updateIcon.svg" alt="clear">
+            </button>
+            <button class="findBtn text" locale-text="find"></button>
+            <button class="clearBtn" id="clearBtn">
+                <img src="/skin/images/deleteIcon.svg" alt="clear">
+            </button>
+        </span>
+</body>
+<script type="module" src="panel.js"></script>
+<script src="locale/translate-script.js"></script>
+<!-- <script type="module" src="../devtools.js"></script> -->
+</html>

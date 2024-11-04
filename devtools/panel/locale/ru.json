@@ -1,0 +1,19 @@
+{
+    "loadedFunctionalModeDescription": "Режим работы с подсветкой загруженных(с множеством стилей) элементов",
+    "shortLoadedFunctionalMode": "Загруженные элементы",
+    "unusableFunctionalModeDescription": "Режим работы с подсветкой неиспользуемых стилей",
+    "shortUnusableFunctionalMode": "Неиспользуемые стили",
+    "constantViewModeDescription": "Режим отображения с постоянной подсветкой элементов",
+    "shortConstantViewMode": "Постоянная подсветка",
+    "fadeViewModeDescription": "Режим отображения с угасающей яркостью подсветки элементов",
+    "shortFadeViewMode": "Угасающая подсветка",
+    "colorHighlightShort": "Цвет подсветки",
+    "colorHighlightDescription": "Цвет подсветки найденных элементов",
+    "maxElementsCaptureDescription": "Максимальное количество подсвечиваемых элементов",
+    "shortMaxElementsCaptureShort": "Кол-во элементов",
+    "intervalReduceOpacityShort": "Интервал затухания",
+    "intervalReduceOpacityDescription": "Интервал уменьшения прозрачности у выделенных элементов",
+    "percentReduceOpacityShort": "Процент затухания",
+    "percentReduceOpacityDescription": "Процент уменьшения прозрачности у выделенных элементов",
+    "find":"Найти"
+}
