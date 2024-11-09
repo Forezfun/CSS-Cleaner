@@ -9,6 +9,7 @@ if (!window.hasInitializedListeners) {
   })
   window.hasInitializedListeners = true;
   browser.runtime.onMessage.addListener((message) => {
+    console.log(message)
     switch (message.type) {
       case "recalculateParams":
         recalculateParams();
@@ -22,8 +23,10 @@ if (!window.hasInitializedListeners) {
         break
       case "cleanHighlightedElements":
         cleanHighlightedElements()
+        break
     }
   });
+
   async function handleShown() {
     await recalculateParams()
     browser.runtime.sendMessage({ type: "fetchRules" })
@@ -55,7 +58,7 @@ if (!window.hasInitializedListeners) {
     try {
       const jsonDOMTreeUpdateObject = JSON.stringify(DOMTreeUpdateObject)
       const jsonSettingsObject = JSON.stringify(settingsObject)
-
+      console.log(DOMTreeUpdateObject, settingsObject)
       const [result, exception] = await browser.devtools.inspectedWindow.eval(`
           (function() {
             try {
@@ -264,3 +267,5 @@ if (!window.hasInitializedListeners) {
     }
   }
 }
+
+

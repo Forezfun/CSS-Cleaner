@@ -1,12 +1,17 @@
-if (!window.hasInitializedListeners){
-window.hasInitializedListeners = true;
+if (!window.hasInitializedListenersUnused){
+window.hasInitializedListenersUnused = true;
 browser.runtime.onMessage.addListener(async(message) => {
     console.log(message)
     switch (message.type) {
         case "highlightElementsWithUnusedStyles":
             highlightElementsWithUnusedStyles(message.settingsObject)
+            break
         case "fetchRules":
             rulesObject = await getRulesObject()
+            break   
+        case "tohighlightDOMElements":
+            browser.runtime.sendMessage({ type: "highlightDOMElements",DOMTreeUpdateObject:message.DOMTreeUpdateObject,settingsObject:message.settingsObject })
+            break
     }
 });
 }

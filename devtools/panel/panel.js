@@ -73,6 +73,7 @@ findButton.addEventListener('click',()=>{
         finalSettingsObject.fadePercentage=extensionSettings.fadePercentage
     }
     if(extensionSettings.workMode ==='loaded'){
+        browser.runtime.sendMessage({ type: "highlightLoadedElement",minLayersQuantity:2,maxLayersQuantity:4,settingsObject:finalSettingsObject })
         return
     }
     browser.runtime.sendMessage({ type: "highlightElementsWithUnusedStyles",settingsObject:finalSettingsObject })
