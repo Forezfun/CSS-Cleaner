@@ -1,7 +1,6 @@
 if (!window.hasInitializedListenersUnused){
 window.hasInitializedListenersUnused = true;
 browser.runtime.onMessage.addListener(async(message) => {
-    console.log(message)
     switch (message.type) {
         case "highlightElementsWithUnusedStyles":
             highlightElementsWithUnusedStyles(message.settingsObject)
@@ -25,7 +24,6 @@ async function highlightElementsWithUnusedStyles(settingsObject) {
         let DOMUpdateArray = []
         DOMElementsArray = await browser.runtime.sendMessage({ type: "getDOMTree" })
         stylesObject = await browser.runtime.sendMessage({ type: "getStyles" })
-        console.log(DOMElementsArray, stylesObject)
         DOMElementsArray.forEach(elementObject => {
             const skipedHtmlTagsArray = ['HTML', 'SCRIPT', 'META', 'LINK', 'HEAD', 'STYLE', 'APP-LS-CONTENT'];
             if (skipedHtmlTagsArray.includes(elementObject.tagName)) return;
@@ -41,10 +39,9 @@ async function highlightElementsWithUnusedStyles(settingsObject) {
         DOMUpdateArray.sort((a, b) => b.unusedStylesCount - a.unusedStylesCount)
         DOMUpdateArray.length = Math.min(DOMUpdateArray.length,settingsObject.maxQuantity)
         DOMUpdateArray = repaintDOMArray(DOMUpdateArray)
-        console.log(DOMUpdateArray)
         browser.runtime.sendMessage({ type: "highlightDOMElements",DOMTreeUpdateObject:DOMUpdateArray,settingsObject:settingsObject })
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 }
 // Variables

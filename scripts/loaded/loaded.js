@@ -1,9 +1,7 @@
 if (!window.hasInitializedListenersLoaded) {
-    console.log("Инициализация слушателя сообщений");
     window.hasInitializedListenersLoaded = true;
 
     browser.runtime.onMessage.addListener(async (message) => {
-        console.log(message);
         if (message.type === "highlightLoadedElement") {
             await highlightLoadedElement(message.settingsObject);
         }
@@ -16,12 +14,10 @@ if (!window.hasInitializedListenersLoaded) {
                 (function() {
                     const minLayersQuantity = ${settingsObject.minLayersQuantity};
                     const maxLayersQuantity = ${settingsObject.maxLayersQuantity};
-                    console.log(minLayersQuantity)
                     const elementsArray = filterByLayer(document.querySelectorAll('*'), minLayersQuantity, maxLayersQuantity);
                     const addedElements = [];
                     let paintArray = [];
-    
-                    console.log('Elements to be processed:', elementsArray);
+
     
                     function filterByLayer(elementsArray, minLayersQuantity, maxLayersQuantity) {
                         return Array.from(elementsArray).filter(element => {
@@ -56,7 +52,6 @@ if (!window.hasInitializedListenersLoaded) {
     
                         performance.mark('App_FrameProduced');
                         const measure = performance.measure('FrameTime', 'App_Start', 'App_FrameProduced');
-                        console.log("The Frame was produced after " + measure.duration + "ms");
     
                         paintArray.push({
                             listId: element.getAttribute('listId'),
@@ -93,7 +88,6 @@ if (!window.hasInitializedListenersLoaded) {
             result.sort((a, b) => b.paintTime - a.paintTime)
             result.length = Math.min(result.length,settingsObject.maxQuantity)
             result = transformToHighlightObject(result)
-            console.log("Добавленные элементы:", result);
             browser.runtime.sendMessage({ type: "tohighlightDOMElements",DOMTreeUpdateObject:result,settingsObject:settingsObject })
         } catch (error) {
             console.error("Ошибка выполнения функции highlightLoadedElement:", error);

@@ -80,7 +80,6 @@ function fixAndCheckInputValues(){
         min<0||
         max<min
     )return
-    console.log(min,max)
     extensionSettings.minLayersQuantity=min
     extensionSettings.maxLayersQuantity=max
 }
@@ -96,7 +95,6 @@ findButton.addEventListener('click',async()=>{
         delay = await browser.runtime.sendMessage({ type: "getDelay" })
         browser.runtime.sendMessage({ type: "cleanHighlightedElements" })
     }
-    console.log('Delay: ',delay)
     fixAndCheckInputValues()
     let finalSettingsObject = {
         highlightColor:extensionSettings.highlightColor,

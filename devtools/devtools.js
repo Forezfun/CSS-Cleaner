@@ -5,11 +5,9 @@ if (!window.hasInitializedListenersDevTools) {
     "/devtools/panel/panel.html"
   ).then((newPanel) => {
     newPanel.onShown.addListener(handleShown);
-    newPanel.onHidden.addListener(handleHidden);
   })
   window.hasInitializedListenersDevTools = true;
   browser.runtime.onMessage.addListener((message) => {
-    console.log(message)
     switch (message.type) {
       case "recalculateParams":
         recalculateParams();
@@ -31,33 +29,26 @@ if (!window.hasInitializedListenersDevTools) {
     browser.runtime.sendMessage({ type: "fetchRules" })
   }
   let opacityReduceIntervalMS = 500
-  function handleHidden() {
-    console.log('hide')
-  }
   let DOMTree = [], allStylesObject = {}
   async function recalculateParams() {
     try {
       await calculateDOMTree();
       await calculateAllStylesObject();
-      console.log(DOMTree, allStylesObject)
     } catch (error) {
       console.error("Error during restartCalculation:", error);
     }
   }
 
   function getStyles() {
-    console.log(allStylesObject)
     return allStylesObject
   }
   function getDOMTree() {
-    console.log(DOMTree)
     return DOMTree
   }
   async function highlightDOMElements(DOMTreeUpdateObject, settingsObject) {
     try {
       const jsonDOMTreeUpdateObject = JSON.stringify(DOMTreeUpdateObject)
       const jsonSettingsObject = JSON.stringify(settingsObject)
-      console.log(DOMTreeUpdateObject, settingsObject)
       const [result, exception] = await browser.devtools.inspectedWindow.eval(`
           (function() {
             try {
@@ -90,30 +81,32 @@ if (!window.hasInitializedListenersDevTools) {
                 });
                 if (clearIntervalCheck) clearInterval(window.reduceOpacityInterval);
               }
-  
-                const style = document.createElement('style');
-                style.id = 'ccsCleanerStyle';
-                const opacityReduceIntervalMS = settingsObject.fadeInterval?settingsObject.fadeInterval:500
-                style.textContent = \`
-                    .csscleaner {
-                        transition: background \${opacityReduceIntervalMS/1000}s ease-in-out;
-                    }
-                    .csscleaner:hover{
-                    background:none;
-                    }
-                \`;
-                document.head.appendChild(style);
-              
+
+                  const style = document.createElement('style');
+                  style.id = 'ccsCleanerStyle';
+                  const opacityReduceIntervalMS = settingsObject.fadeInterval?settingsObject.fadeInterval:500
+                  style.textContent = \`
+                      .csscleaner {
+                          transition: background \${opacityReduceIntervalMS/1000}s ease-in-out;
+                      }
+                      .csscleaner:hover{
+                      background:none;
+                      }
+                  \`;
+                  document.head.appendChild(style);
+                  console.log(style)
+
+              const showedElementsArray = []
               console.log('%cCSS CLEANER', 'padding: 5px; border-radius: 7px;background-color:#4CAF50;font-size:20px;color:white;margin-left:50%');
               DOMTreeUpdateObject.forEach(highlightObject => {
                 const element = elementsArray[highlightObject.elementObject.listId];
                 if (element) {
-                  console.log(element)
+                  showedElementsArray.push(element)
                   element.style.background = hexToRgbWithOpacity(settingsObject.highlightColor, highlightObject.opacity);
                   element.classList.add('csscleaner');
                 }
               });
-
+              console.log(showedElementsArray)
                          
               
               if (settingsObject.fadeInterval) {
@@ -125,7 +118,7 @@ if (!window.hasInitializedListenersDevTools) {
                   if(styleElement){
                   styleElement.remove()
                   }
-                  },100/settingsObject.fadePercentage)
+                  },100/settingsObject.fadePercentage*opacityReduceIntervalMS)
               }
               return opacityReduceIntervalMS
             } catch (error) {
@@ -180,7 +173,6 @@ if (!window.hasInitializedListenersDevTools) {
       const [result, exception] = await browser.devtools.inspectedWindow.eval(`
         (function() {
           const opacityReduceIntervalMS = ${opacityReduceIntervalMS}
-          console.log(opacityReduceIntervalMS)
           const elements = document.querySelectorAll('.csscleaner');
           elements.forEach(element => {
             element.style.removeProperty('background');
