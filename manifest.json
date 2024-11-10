@@ -1,15 +1,12 @@
 {
   "manifest_version": 2,
   "name": "CSS Cleaner",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Highlight hard DOM elements of CSS part of web application",
   "icons": {
     "64": "skin/icons/64.png",
     "128": "skin/icons/128.png"
   },
-  "permissions": [
-    "<all_urls>"
-  ],
   "browser_action": {
     "default_icon": {
       "128": "skin/icons/128.png"
