@@ -51,6 +51,7 @@ async function getRulesObject() {
     return rulesObject;
 }
 function repaintDOMArray(DOMElementsArray) {
+    if(DOMElementsArray.length===0)return []
     const maxPoint = DOMElementsArray[0].unusedStylesCount
     return DOMElementsArray.map(elementObject => {
         return {

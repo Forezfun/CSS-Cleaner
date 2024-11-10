@@ -12,33 +12,45 @@
             </select>
         </span>
         <div class="buttonSwitcher">
-            <button class="switchButton workButton active text"id="workMode1" locale-title="loadedFunctionalModeDescription" locale-text="shortLoadedFunctionalMode"></button>
-            <button class="switchButton workButton text" id="workMode2" locale-title="unusableFunctionalModeDescription" locale-text="shortUnusableFunctionalMode"></button>
+            <button class="switchButton workButton active text" id="workMode1" locale-title="descriptionLoadedFunctionalMode" locale-text="shortLoadedFunctionalMode"></button>
+            <button class="switchButton workButton text" id="workMode2" locale-title="descriptionUnusableFunctionalMode" locale-text="shortUnusableFunctionalMode"></button>
         </div>
         <span class="settings">
             <span class="allModesSettingsSpan settingsSpan">
                 <span class="pair">
-                    <label for="colorHightlight" class="labelSetting" locale-title="colorHighlightDescription" locale-text="colorHighlightShort"></label>
+                    <label for="colorHightlight" class="labelSetting" locale-title="descriptionColorHighlight" locale-text="shortColorHighlight"></label>
                     <input id="colorHightlight" class="inputSetting" type="color">
                 </span>
                 <span class="pair">
-                    <label for="maxElements" class="labelSetting" locale-title="maxElementsCaptureDescription" locale-text="shortMaxElementsCaptureShort"></label>
+                    <label for="maxElements" class="labelSetting" locale-title="descriptionMaxElementsCapture" locale-text="shortMaxElementsCapture"></label>
                     <input placeholder="5-100" min="10" type="number" max="100" id="maxElements" class="inputSetting">
                 </span>
             </span>
+            <span class="loadedFunctionalModeSettingsSpan settingsSpan">
+                <span class="pair">
+                    <label for="minLayersQuantity" class="labelSetting" locale-title="descriptionMinQuantityLayers" locale-text="shortMinQuantityLayers"></label>
+                    <input placeholder="0+" min="10" type="number" max="100" id="minLayersQuantity" class="inputSetting">
+                </span>
+                <span class="pair">
+                    <label for="maxLayersQuantity" class="labelSetting" locale-title="descriptionMaxQuantityLayers" locale-text="shortMaxQuantityLayers"></label>
+                    <input placeholder="0+" min="10" type="number" max="100" id="maxLayersQuantity" class="inputSetting">
+                </span>
+            </span>
+            <span class="unusableFunctionalModeSettingsSpan settingsSpan disabled">
+            </span>
             <div class="buttonSwitcher">
-                <button class="switchButton viewButton text" id="viewMode1" locale-title="constantViewModeDescription" locale-text="shortConstantViewMode"></button>
-                <button class="switchButton viewButton text active" id="viewMode2" locale-title="fadeViewModeDescription" locale-text="shortFadeViewMode"></button>
+                <button class="switchButton viewButton text" id="viewMode1" locale-title="descriptionConstantViewMode" locale-text="shortConstantViewMode"></button>
+                <button class="switchButton viewButton text active" id="viewMode2" locale-title="descriptionFadeViewMode" locale-text="shortFadeViewMode"></button>
             </div>
             <span class="constantViewModeSettingsSpan settingsSpan disabled">
             </span>
             <span class="temporaryViewModeSettingsSpan settingsSpan">
                 <span class="pair">
-                    <label for="reduceInterval" class="labelSetting" locale-title="intervalReduceOpacityDescription" locale-text="intervalReduceOpacityShort"></label>
+                    <label for="reduceInterval" class="labelSetting" locale-title="descriptionIntervalReduceOpacity" locale-text="shortIntervalReduceOpacity"></label>
                     <input placeholder="100ms-10000ms" type="text" id="reduceInterval" class="inputSetting">
                 </span>
                 <span class="pair">
-                    <label for="reducePercent" class="labelSetting" locale-title="percentReduceOpacityDescription" locale-text="percentReduceOpacityShort"></label>
+                    <label for="reducePercent" class="labelSetting" locale-title="descriptionPercentReduceOpacity" locale-text="shortPercentReduceOpacity"></label>
                     <input placeholder="1-25" type="number" max="25" min="1" id="reducePercent" class="inputSetting">
                 </span>
             </span>

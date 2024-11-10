@@ -5,17 +5,18 @@ if (!window.hasInitializedListenersLoaded) {
     browser.runtime.onMessage.addListener(async (message) => {
         console.log(message);
         if (message.type === "highlightLoadedElement") {
-            await highlightLoadedElement(message.minLayersQuantity, message.maxLayersQuantity,message.settingsObject);
+            await highlightLoadedElement(message.settingsObject);
         }
     });
-    async function highlightLoadedElement(minLayersQuantity, maxLayersQuantity,settingsObject) {
+    async function highlightLoadedElement(settingsObject) {
         try {
             // Устанавливаем уникальный ключ для результата
             const uniqueKey = `highlightResult_${Date.now()}`;
             const scriptToEvaluate = `
                 (function() {
-                    const minLayersQuantity = ${minLayersQuantity};
-                    const maxLayersQuantity = ${maxLayersQuantity};
+                    const minLayersQuantity = ${settingsObject.minLayersQuantity};
+                    const maxLayersQuantity = ${settingsObject.maxLayersQuantity};
+                    console.log(minLayersQuantity)
                     const elementsArray = filterByLayer(document.querySelectorAll('*'), minLayersQuantity, maxLayersQuantity);
                     const addedElements = [];
                     let paintArray = [];
@@ -26,6 +27,7 @@ if (!window.hasInitializedListenersLoaded) {
                         return Array.from(elementsArray).filter(element => {
                             const skippedHtmlTagsArray = ['HTML', 'SCRIPT', 'META', 'LINK', 'HEAD', 'STYLE', 'APP-LS-CONTENT'];
                             if (skippedHtmlTagsArray.includes(element.tagName)) return false;
+                            if(minLayersQuantity===null)return true
                             const depth = getMaxDepth(element);
                             return (depth >= minLayersQuantity) && (depth <= maxLayersQuantity);
                         });
@@ -99,6 +101,7 @@ if (!window.hasInitializedListenersLoaded) {
         }
     }
     function transformToHighlightObject(paintArray){
+        if(paintArray.length===0)return []
         const maxPaintTime = paintArray[0].paintTime
         return paintArray.map(dataObject=>{
             return {

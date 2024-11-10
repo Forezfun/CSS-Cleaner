@@ -1,7 +1,12 @@
 const workModeButtons = document.querySelectorAll('.workButton');
 const viewModeButtons = document.querySelectorAll('.viewButton');
+
 const constantViewModeSettingsSpan = document.querySelector('.constantViewModeSettingsSpan');
 const temporaryViewModeSettingsSpan = document.querySelector('.temporaryViewModeSettingsSpan');
+
+const loadedFunctionalModeSettingsSpan = document.querySelector('.loadedFunctionalModeSettingsSpan');
+const unusableFunctionalModeSettingsSpan = document.querySelector('.unusableFunctionalModeSettingsSpan');
+
 const colorInput = document.getElementById('colorHightlight')
 colorInput.value='#fc0320'
 const quantityInput = document.getElementById('maxElements')
@@ -10,6 +15,9 @@ const percentInput = document.getElementById('reducePercent')
 const findButton = document.querySelector('.findBtn')
 const clearButton = document.getElementById('clearBtn')
 const updateButton = document.getElementById('updateBtn')
+const minLayersQuantityInput = document.getElementById('minLayersQuantity')
+const maxLayersQuantityInput = document.getElementById('maxLayersQuantity')
+
 let extensionSettings = {
     workMode:'loaded',
     viewMode:'fade',
@@ -23,8 +31,12 @@ workModeButtons.forEach(button => {
         workModeButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         if (button.id === 'workMode1') {
+            loadedFunctionalModeSettingsSpan.classList.remove('disabled')
+            unusableFunctionalModeSettingsSpan.classList.add('disabled')
             extensionSettings.workMode='loaded'
         } else {
+            unusableFunctionalModeSettingsSpan.classList.remove('disabled')
+            loadedFunctionalModeSettingsSpan.classList.add('disabled')
             extensionSettings.workMode='unused'
         }
     });
@@ -46,15 +58,31 @@ viewModeButtons.forEach(button => {
     });
 });
 function fixAndCheckInputValues(){
-    console.log('fix')
     extensionSettings.highlightColor=colorInput.value||extensionSettings.highlightColor
     extensionSettings.maxQuantity=Math.min(Math.max(+quantityInput.value||extensionSettings.maxQuantity,5),100)
     extensionSettings.fadeInterval=Math.min(Math.max(+intervalInput.value||extensionSettings.fadeInterval,100),10000)
     extensionSettings.fadePercentage=Math.min(Math.max(+percentInput.value||extensionSettings.fadePercentage,1),25)
-    
+    extensionSettings.minLayersQuantity=null
+    extensionSettings.maxLayersQuantity=null
+
     quantityInput.value=extensionSettings.maxQuantity
     intervalInput.value=extensionSettings.fadeInterval
     percentInput.value=extensionSettings.fadePercentage
+
+    const min = +minLayersQuantityInput.value
+    const max = +maxLayersQuantityInput.value
+
+    if(
+        minLayersQuantityInput.value.length==0||
+        maxLayersQuantityInput.value.length==0||
+        typeof +min !== 'number'||
+        typeof +max !== 'number'||
+        min<0||
+        max<min
+    )return
+    console.log(min,max)
+    extensionSettings.minLayersQuantity=min
+    extensionSettings.maxLayersQuantity=max
 }
 clearButton.addEventListener('click',()=>{
     browser.runtime.sendMessage({ type: "cleanHighlightedElements" })
@@ -73,7 +101,9 @@ findButton.addEventListener('click',()=>{
         finalSettingsObject.fadePercentage=extensionSettings.fadePercentage
     }
     if(extensionSettings.workMode ==='loaded'){
-        browser.runtime.sendMessage({ type: "highlightLoadedElement",minLayersQuantity:2,maxLayersQuantity:4,settingsObject:finalSettingsObject })
+        finalSettingsObject.minLayersQuantity=extensionSettings.minLayersQuantity
+        finalSettingsObject.maxLayersQuantity=extensionSettings.maxLayersQuantity
+        browser.runtime.sendMessage({ type: "highlightLoadedElement",settingsObject:finalSettingsObject })
         return
     }
     browser.runtime.sendMessage({ type: "highlightElementsWithUnusedStyles",settingsObject:finalSettingsObject })
