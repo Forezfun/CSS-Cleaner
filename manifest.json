@@ -4,15 +4,15 @@
   "version": "1.1",
   "description": "Highlight hard DOM elements of CSS part of web application",
   "icons": {
-    "48": "skin/icons/48.png",
-    "96": "skin/icons/96.png"
+    "64": "skin/icons/64.png",
+    "128": "skin/icons/128.png"
   },
   "permissions": [
     "<all_urls>"
   ],
   "browser_action": {
     "default_icon": {
-      "96": "skin/icons/96.png"
+      "128": "skin/icons/128.png"
     },
     "default_title": "Content script",
     "browser_style": true

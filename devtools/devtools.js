@@ -1,7 +1,7 @@
 if (!window.hasInitializedListeners) {
   browser.devtools.panels.create(
     "CSS Cleaner",
-    "/skin/icons/96.png",
+    "/skin/icons/64.png",
     "/devtools/panel/panel.html"
   ).then((newPanel) => {
     newPanel.onShown.addListener(handleShown);
