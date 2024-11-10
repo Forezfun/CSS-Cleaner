@@ -90,7 +90,13 @@ clearButton.addEventListener('click',()=>{
 updateButton.addEventListener('click',()=>{
     browser.runtime.sendMessage({ type: "recalculateParams" })
 })
-findButton.addEventListener('click',()=>{
+findButton.addEventListener('click',async()=>{
+    let delay = 0
+    if(extensionSettings.maxLayersQuantity!==undefined){
+        delay = await browser.runtime.sendMessage({ type: "getDelay" })
+        browser.runtime.sendMessage({ type: "cleanHighlightedElements" })
+    }
+    console.log('Delay: ',delay)
     fixAndCheckInputValues()
     let finalSettingsObject = {
         highlightColor:extensionSettings.highlightColor,
@@ -100,12 +106,14 @@ findButton.addEventListener('click',()=>{
         finalSettingsObject.fadeInterval=extensionSettings.fadeInterval
         finalSettingsObject.fadePercentage=extensionSettings.fadePercentage
     }
-    if(extensionSettings.workMode ==='loaded'){
-        finalSettingsObject.minLayersQuantity=extensionSettings.minLayersQuantity
-        finalSettingsObject.maxLayersQuantity=extensionSettings.maxLayersQuantity
-        browser.runtime.sendMessage({ type: "highlightLoadedElement",settingsObject:finalSettingsObject })
-        return
-    }
-    browser.runtime.sendMessage({ type: "highlightElementsWithUnusedStyles",settingsObject:finalSettingsObject })
+    setTimeout(()=>{
+        if(extensionSettings.workMode ==='loaded'){
+            finalSettingsObject.minLayersQuantity=extensionSettings.minLayersQuantity
+            finalSettingsObject.maxLayersQuantity=extensionSettings.maxLayersQuantity
+            browser.runtime.sendMessage({ type: "highlightLoadedElement",settingsObject:finalSettingsObject })
+            return
+        }
+        browser.runtime.sendMessage({ type: "highlightElementsWithUnusedStyles",settingsObject:finalSettingsObject })
+    },delay)
 })
 

@@ -11,10 +11,15 @@ browser.runtime.onMessage.addListener(async(message) => {
             break   
         case "tohighlightDOMElements":
             browser.runtime.sendMessage({ type: "highlightDOMElements",DOMTreeUpdateObject:message.DOMTreeUpdateObject,settingsObject:message.settingsObject })
+        break 
+        case "changeDelay":
+            delay=message.delay
             break
+        case "getDelay":
+            return Promise.resolve(delay)     
     }
 });
-}
+let delay = 500
 async function highlightElementsWithUnusedStyles(settingsObject) {
     try {
         let DOMUpdateArray = []
@@ -118,3 +123,4 @@ function findUniqueElementStyles(elementObject) {
     return elementUniqueStylesObject
 }
 // Start script
+}

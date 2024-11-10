@@ -1,4 +1,4 @@
-if (!window.hasInitializedListeners) {
+if (!window.hasInitializedListenersDevTools) {
   browser.devtools.panels.create(
     "CSS Cleaner",
     "/skin/icons/64.png",
@@ -7,7 +7,7 @@ if (!window.hasInitializedListeners) {
     newPanel.onShown.addListener(handleShown);
     newPanel.onHidden.addListener(handleHidden);
   })
-  window.hasInitializedListeners = true;
+  window.hasInitializedListenersDevTools = true;
   browser.runtime.onMessage.addListener((message) => {
     console.log(message)
     switch (message.type) {
@@ -23,7 +23,6 @@ if (!window.hasInitializedListeners) {
         break
       case "cleanHighlightedElements":
         cleanHighlightedElements()
-        break
     }
   });
 
@@ -140,6 +139,7 @@ if (!window.hasInitializedListeners) {
         throw new Error(exception);
       }
       opacityReduceIntervalMS = result
+      browser.runtime.sendMessage({ type: "changeDelay",delay:result})
     } catch (error) {
       console.error(error);
       throw error;
@@ -176,7 +176,6 @@ if (!window.hasInitializedListeners) {
     }
   }
   async function cleanHighlightedElements() {
-    console.log(opacityReduceIntervalMS)
     try {
       const [result, exception] = await browser.devtools.inspectedWindow.eval(`
         (function() {
@@ -195,13 +194,13 @@ if (!window.hasInitializedListeners) {
             styleElement.remove();
           }
           }, opacityReduceIntervalMS);
+
         })();
       `);
   
       if (exception) {
         throw new Error(exception);
       }
-  
     } catch (error) {
       console.error(error);
       throw error;
