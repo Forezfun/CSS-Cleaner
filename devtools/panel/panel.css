@@ -163,10 +163,3 @@ input[type="color"]::-moz-color-swatch {
 .disabled {
     max-height: 0;
 }
-
-.black {
-    width: 10px;
-    aspect-ratio: 1;
-    border-radius: 15px;
-    background-color: greenyellow;
-}

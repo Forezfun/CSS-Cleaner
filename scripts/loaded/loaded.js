@@ -8,7 +8,6 @@ if (!window.hasInitializedListenersLoaded) {
     });
     async function highlightLoadedElement(settingsObject) {
         try {
-            // Устанавливаем уникальный ключ для результата
             const uniqueKey = `highlightResult_${Date.now()}`;
             const scriptToEvaluate = `
                 (function() {
@@ -47,7 +46,6 @@ if (!window.hasInitializedListenersLoaded) {
                         document.body.appendChild(cloneNode);
                         addedElements.push(cloneNode);
     
-                        // Ждем два кадра для полной отрисовки
                         await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     
                         performance.mark('App_FrameProduced');
@@ -66,16 +64,13 @@ if (!window.hasInitializedListenersLoaded) {
                             await main(element);
                         }
     
-                        // Сохраняем результат в window
                         window["${uniqueKey}"] = paintArray;
                     })();
                 })();
             `;
     
-            // Выполняем скрипт в контексте страницы
             await browser.devtools.inspectedWindow.eval(scriptToEvaluate);
     
-            // Ожидаем появления результата в window
             let result = await new Promise(resolve => {
                 const checkInterval = setInterval(async () => {
                     const [data] = await browser.devtools.inspectedWindow.eval(`window["${uniqueKey}"]`);

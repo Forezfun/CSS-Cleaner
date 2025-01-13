@@ -44,9 +44,9 @@ async function highlightElementsWithUnusedStyles(settingsObject) {
         console.error(error)
     }
 }
-// Variables
+
 let rulesObject, stylesObject, DOMElementsArray
-// Emergency call functions(calculations) 
+
 async function getRulesObject() {
     const rulesObjectResponse = await fetch('/scripts/unused/rules.json');
     const rulesObject = await rulesObjectResponse.json();
@@ -119,5 +119,4 @@ function findUniqueElementStyles(elementObject) {
 
     return elementUniqueStylesObject
 }
-// Start script
 }
